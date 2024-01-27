@@ -1,33 +1,35 @@
-//Variables
-let numeroMaximoPosible = 10
-let numeroSecreto = Math.floor(Math.random()*numeroMaximoPosible)+1;
-let numeroDeUsuario = 0;
+let numeroSecreto = generarNumeroSecreto();
 let intentos = 1;
-//let palabraVeces = 'vez';
-let maximosIntentos = 3;
 
-//bucle
-while (numeroDeUsuario != numeroSecreto) {
-    numeroDeUsuario = parseInt(prompt(`Me indicas un numero entre 1 y ${numeroMaximoPosible} por favor`));
+console.log(numeroSecreto);
 
-    console.log(typeof(numeroDeUsuario));
-    if (numeroDeUsuario == numeroSecreto) {
-        //Acertamos, fue verdadera la condicion
-        alert(`Acertaste, el numero es: ${numeroDeUsuario}. Lo hiciste en ${intentos} ${intentos == 1 ? 'vez' : 'veces'}`);
+function asignarTextoElemento(elemento, texto) {
+    let elementoHTML = document.querySelector(elemento);
+    elementoHTML.innerHTML = texto;
+    return;
+}
+
+function verificarIntento() {
+    let numeroDeUsuario = parseInt(document.getElementById('valorUsuario').value);
+    
+    console.log(intentos);
+    if (numeroDeUsuario === numeroSecreto) {
+        asignarTextoElemento('p',`Acertaste el numero secreto en ${intentos} ${(intentos === 1) ? 'intento' : 'intentos'}. FELICIDADES...`);
     } else{
-        if (numeroDeUsuario > numeroSecreto) {
-            alert('El numero secreto es menor');
+        if (numeroDeUsuario > numeroSecreto){
+            asignarTextoElemento('p','El número secreto es menor. Vamos!.');
         } else {
-            alert('El numero secreto es mayor');
+            asignarTextoElemento('p','El número es mayor. Vamos!.');
         }
-        //Incrementamos el contador cuando no acierta 
         intentos++;
 
-        if (intentos > maximosIntentos) {
-            alert('Llegaste al numero maximo de intentos');
-            break;
-        }
-        //La condicion no se cumplio
-        //alert('Lo siento no acestaste el numero'):
     }
+    return;
 }
+
+function generarNumeroSecreto() {
+    return Math.floor(Math.random()*50)+1;
+}
+
+asignarTextoElemento('h1','Cual será el número secreto');
+asignarTextoElemento('p','Adivina un numero entre el 1 y el 50')
